@@ -37,9 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'dj_rest_auth',  # pip install dj-rest-auth
+    'dj_rest_auth.registration',  # allauth ile entegre calisior
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'django_extensions',
     'profiller.apps.ProfillerConfig',  # bole yaparsan da olur profiller yazarsan da olur,
     # eger prfiller yazarsan profiller/init.py dosyasinda commendli yeri eklemen lazim
+    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -125,7 +132,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',  # tokenlarla istek icin
+        'rest_framework.authentication.SessionAuthentication',  # browsable api icin
+
     ]
 }
+SITE_ID = 1 #siteye id vermek gerekli
+ACCOUNT_EMAIL_REQUIRED = (True,) # kayit esnasinda e mail onayi olsun mu olmasin mi
+ACCOUNT_EMAIL_VERIFICATION = 'none' # kayit esnasinda email adresi versinn mi
